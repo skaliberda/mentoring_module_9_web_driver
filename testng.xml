@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+<suite name="SystemSuite" verbose="1">
+
+	<test name="System" >
+ 		<!-- <groups>
+			<run>
+				<include name="smoke" />
+			</run>
+		</groups>  -->
+		
+
+	    <packages>
+			<package name="com.epam.mentoring.*" />
+		</packages> 
+	</test>
+</suite>
