@@ -1,16 +1,19 @@
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
 <suite name="SystemSuite" verbose="1">
 
-	<test name="System" >
- 		<!-- <groups>
-			<run>
-				<include name="smoke" />
-			</run>
-		</groups>  -->
-		
-
-	    <packages>
-			<package name="com.epam.mentoring.*" />
-		</packages> 
+<test name="googleTests" >
+		<classes>
+			<class name="com.epam.mentoring.test.gmail.LoginTest" />
+			
+		</classes>
 	</test>
+	
+	<test name="YahooTests" >
+		<classes>
+			<class name="com.epam.mentoring.test.yahoo.LoginTest" />
+			<class name="com.epam.mentoring.test.yahoo.CreateLetterDraftTest" />
+			<class name="com.epam.mentoring.test.yahoo.SendLetterFromDraftTest" />
+		</classes>
+	</test>
+
 </suite>

@@ -9,25 +9,31 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
 import com.epam.mentoring.core.Utils;
 
-
 public class BaseTest {
 
-	protected WebDriver driver;
+	protected static WebDriver driver;
 	
-	@BeforeClass
+	public static WebDriver getDriver() {
+       	System.setProperty("webdriver.chrome.driver", ".//src//test/resources//chromedriver.exe");
+       	driver = new ChromeDriver();      
+       	driver.manage().timeouts().implicitlyWait(Integer.parseInt(Utils.getProperty("timeout")), TimeUnit.SECONDS);//timeout
+       	driver.manage().window().maximize();
+       	return driver;             
+    }
+	
+	@BeforeSuite
 	public void setUp() throws IOException{
-        System.setProperty("webdriver.chrome.driver", ".//src//test/resources//chromedriver.exe");
-        driver = new ChromeDriver();      
-		driver.manage().timeouts().implicitlyWait(Integer.parseInt(Utils.getProperty("timeout")), TimeUnit.SECONDS);//timeout
-		driver.manage().window().maximize();
+        if (driver == null) {
+        	driver = getDriver();
+        }
 	}
 	
-	@AfterClass
+	@AfterSuite
 	public void tearDown() throws IOException{
 		takeScreenshot();
 		driver.quit();
