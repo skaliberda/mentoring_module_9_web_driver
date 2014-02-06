@@ -9,13 +9,15 @@ import org.testng.annotations.Test;
 public class LoginTest extends BaseTest {
 
     @Test
-    public void testLogin() {
+    public void sendMail() {
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         loginPage.openUrl(Utils.getProperty("mailru.url"));
         loginPage.loginToMailBox(Utils.getProperty("mailru.username"), Utils.getProperty("mailru.domain"),
                 Utils.getProperty("mailru.password"));
         homePage.verifyLoggedUserName(Utils.getProperty("mailru.verName"));
+        homePage.writeNewEMail();
+
     }
 
 }
