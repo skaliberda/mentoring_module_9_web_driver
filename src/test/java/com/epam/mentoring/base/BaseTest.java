@@ -18,7 +18,7 @@ public class BaseTest {
 
 	protected static WebDriver driver;
 	
-	public static WebDriver getDriver() {
+	protected static WebDriver getDriver() {
        	System.setProperty("webdriver.chrome.driver", ".//src//test/resources//chromedriver.exe");
        	driver = new ChromeDriver();      
        	driver.manage().timeouts().implicitlyWait(Integer.parseInt(Utils.getProperty("timeout")), TimeUnit.SECONDS);//timeout
