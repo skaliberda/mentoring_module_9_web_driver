@@ -3,15 +3,11 @@ package com.epam.mentoring.pages.mailru;
 import com.epam.mentoring.configuration.Configuration;
 import com.epam.mentoring.pages.BasePage;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BasePage {
-
-    Configuration configuration;
 
     @FindBy(xpath = "//i[@class='x-ph__menu__button__text x-ph__menu__button__text_auth']")
     private WebElement verNameLabel;
@@ -33,6 +29,9 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//span[text() = 'Черновики']")
     private WebElement draftLink;
+
+    @FindBy(xpath = "//div[contains(@data-name, 'saveStatus')]")
+    private WebElement saveStatusMessage;
 
     private final String draftRow = "//a[contains(@title,'%s')]";
 
@@ -70,23 +69,33 @@ public class HomePage extends BasePage {
         saveLetter.click();
     }
 
+    private boolean isAlertPresent() {
+        try{
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException Ex) {
+            return false;
+        }
+    }
+
     public void clickDraftLink() {
         draftLink.click();
     }
 
-    public void checkSavedDrafts() {
-        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow()))
+    public void checkSavedDrafts(String addressPath) {
+        if (isAlertPresent()) {
+            driver.switchTo().alert().accept();
+        }
+        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow(addressPath)))
                 .isDisplayed());
     }
 
-    public void openDraftLetter() {
-     driver.findElement(By.xpath(getDraftRow())).click();
+    public void openDraftLetter(String addressPath) {
+        driver.findElement(By.xpath(getDraftRow(addressPath))).click();
     }
 
-    private String getDraftRow() {
-        return String.format(draftRow, configuration.getAddress());
-
+    private String getDraftRow(String addressPath) {
+        return String.format(draftRow, addressPath);
     }
-
 
 }
