@@ -17,29 +17,28 @@ public class CvsDataProvider {
         String[] allFile = new String[0];
         String[][] userData = new String[0][];
         int index = 0;
-        allFile = readAllData();
+        allFile = readAllData(csvFilePath);
         userData = getArray(allFile, csvSeparator);
         for (int i = 0; i < allFile.length; i++) {
             String[] userInformation = allFile[i].split(csvSeparator);
-            userData[index][0] = userInformation[1];
-            userData[index][1] = userInformation[2];
-            userData[index][2] = userInformation[3];
+            userData[index][0] = userInformation[0];
+            userData[index][1] = userInformation[1];
+            userData[index][2] = userInformation[2];
             index++;
         }
         return userData;
     }
 
-    public String[] readAllData() {
+    public String[] readAllData(String filePath) {
         String line = "";
         List<String> rows = new ArrayList<String>();
         String[] allData;
         BufferedReader csvReader = null;
         try {
-            csvReader = new BufferedReader(new FileReader(csvFilePath));
+            csvReader = new BufferedReader(new FileReader(filePath));
             while ((line = csvReader.readLine()) != null) {
                 rows.add(line);
             }
-            rows.remove(0);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -57,7 +56,7 @@ public class CvsDataProvider {
         int sizeColumn = 0, sizeRow = 0;
         for (int i = 0; i < dataArray.length; i++) {
             String[] buffer = dataArray[i].split(separator);
-            sizeColumn = (buffer.length - 1);
+            sizeColumn = (buffer.length);
             sizeRow++;
         }
         return new String[sizeRow][sizeColumn];

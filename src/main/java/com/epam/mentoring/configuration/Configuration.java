@@ -1,6 +1,5 @@
 package com.epam.mentoring.configuration;
 
-import com.epam.mentoring.core.Utils;
 
 public class Configuration {
 
@@ -9,7 +8,7 @@ public class Configuration {
     private String letterContent;
 
     public Configuration(String[][] configurationData) {
-        int index = Utils.getRandomNumberInRange(0, 2);
+        int index = 0;
         address = configurationData[index][0];
         letterTheme = configurationData[index][1];
         letterContent = configurationData[index][2];
