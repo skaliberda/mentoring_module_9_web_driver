@@ -28,5 +28,11 @@ public class LoginTest extends BaseTest {
         homePage.clickDraftLink();
         homePage.checkSavedDrafts(configuration.getAddress());
         homePage.openDraftLetter(configuration.getAddress());
+        homePage.savedLetter(configuration.getAddress(), configuration.getLetterTheme(), configuration.getLetterContent());
+        homePage.sendLetter();
+        homePage.clickDraftLink();
+        homePage.checkEmptyDraft();
+        homePage.checkSendedLetter(configuration.getAddress());
+        homePage.logOut();
     }
 }

@@ -30,9 +30,20 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text() = 'Черновики']")
     private WebElement draftLink;
 
+    @FindBy(xpath = "//span[text() = 'Отправленные']")
+    private WebElement sendedLink;
+
     @FindBy(xpath = "//div[contains(@data-name, 'saveStatus')]")
     private WebElement saveStatusMessage;
 
+    @FindBy(xpath = "//div[text() = 'У вас нет незавершенных писем']")
+    private WebElement noDraftLetters;
+
+    @FindBy(xpath = "//a[text() = 'выход']")
+    private WebElement logOut;
+
+    private final String addressContainer = "//span[@class = 'js-compose-label compose__labels__label']//span[text() = '%s']";
+    private final String themeContainer = "//input[contains(@name,'Subject')]";
     private final String draftRow = "//a[contains(@title,'%s')]";
 
     public HomePage(WebDriver driver) {
@@ -65,12 +76,21 @@ public class HomePage extends BasePage {
         driver.switchTo().defaultContent();
     }
 
+    private String getLetterText() {
+        driver.switchTo().frame(
+                driver.findElement(By.xpath("//div[contains(@class,'b-compose__editor__frame')]//iframe")));
+        WebElement editable = driver.switchTo().activeElement();
+        String content = editable.getText();
+        driver.switchTo().defaultContent();
+        return content;
+    }
+
     public void clickSaveButton() {
         saveLetter.click();
     }
 
     private boolean isAlertPresent() {
-        try{
+        try {
             driver.switchTo().alert();
             return true;
         } catch (NoAlertPresentException Ex) {
@@ -98,4 +118,34 @@ public class HomePage extends BasePage {
         return String.format(draftRow, addressPath);
     }
 
+    private String getLetterDataLocator(String tempalteLocator, String locatorPath) {
+        return String.format(tempalteLocator, locatorPath);
+    }
+
+    public void savedLetter(String address, String theme, String content) {
+        Assert.assertTrue("Address is wrong.",
+                address.equals(driver.findElement(By.xpath(getLetterDataLocator(addressContainer, address))).getText()));
+        Assert.assertTrue("Content is wrong.", getLetterText().contains(content));
+    }
+
+    public void sendLetter() {
+        sendLetter.click();
+    }
+
+    public void checkEmptyDraft() {
+        Assert.assertTrue("Letter was not send.", noDraftLetters.isDisplayed());
+    }
+
+    public void clickOnSendedLink() {
+        sendedLink.click();
+    }
+
+    public void checkSendedLetter(String addressPath) {
+        Assert.assertTrue("Letter was not present in Outbox", driver.findElement(By.xpath(getDraftRow(addressPath)))
+                .isDisplayed());
+    }
+
+    public void logOut() {
+        logOut.click();
+    }
 }
