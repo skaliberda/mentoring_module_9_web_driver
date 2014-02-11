@@ -13,11 +13,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import com.epam.mentoring.core.TestData;
+import com.epam.mentoring.core.TestDataCreator;
 import com.epam.mentoring.core.Utils;
 
 public class BaseTest {
 
 	protected static WebDriver driver;
+	protected TestDataCreator testDataCreator;
+	protected TestData testData;
 	
 	protected static WebDriver getDriver() {
        	  
@@ -42,6 +46,10 @@ public class BaseTest {
         if (driver == null) {
         	driver = getDriver();
         }
+        
+		//creates test data (used in creating of letter) via Builder pattern
+        testDataCreator = new TestDataCreator();
+        testData = testDataCreator.createTestData("a.n.lyvin@gmail.com", "Test letter", "Letter body from Builder constructor");
 	}
 	
 	@AfterSuite

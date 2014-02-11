@@ -6,7 +6,7 @@ public class TestDataCreator {
 	
 	public TestData createTestData(String addresse, String subject, String body) {
 		builder.create();
-		builder.setAddresse(addresse);
+		builder.setAddressee(addresse);
 		builder.setSubject(subject);
 		builder.setBody(body);
 		return builder.getTestData();

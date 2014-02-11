@@ -12,9 +12,9 @@ public class CreateLetterDraftTest extends BaseTest {
 	public void testCreateLetterDraft() {
 		HomePage homePage = new HomePage(driver);
 		MailTextEditor textEditor = homePage.createNewLetter();
-		textEditor.fillAddressee("a.n.lyvin@gmail.com");
-		textEditor.fillTopic("Test letter");
-		textEditor.fillLetterBody("Hi, here is text of message");
+		textEditor.fillAddressee(testData.getAddressee());
+		textEditor.fillTopic(testData.getSubject());
+		textEditor.fillLetterBody(testData.getBody());
 		textEditor.verifyDraftAutosaved();
 	}
 }

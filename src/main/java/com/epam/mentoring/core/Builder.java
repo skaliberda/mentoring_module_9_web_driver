@@ -8,7 +8,7 @@ public class Builder {
 		testData = new TestData();
 	}
 
-	public void setAddresse(String addressee) {
+	public void setAddressee(String addressee) {
 		this.testData.letterAddressee = addressee;		
 	}
 
@@ -20,6 +20,8 @@ public class Builder {
 		this.testData.letterBody = body;		
 	}
 
+	
+	
 	public TestData getTestData() {
 		return this.testData;
 	}
