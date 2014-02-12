@@ -2,6 +2,7 @@ package com.epam.mentoring.pages.mailru;
 
 import com.epam.mentoring.configuration.Configuration;
 import com.epam.mentoring.pages.BasePage;
+import com.google.common.base.Stopwatch;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -42,8 +43,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[text() = 'выход']")
     private WebElement logOut;
 
+    @FindBy(xpath = "//div[contains(@class, 'is-submit_empty_message_in')]//button[@class = 'btn btn_stylish btn_main confirm-ok']")
+    private WebElement confirmationSend;
+
     private final String addressContainer = "//span[@class = 'js-compose-label compose__labels__label']//span[text() = '%s']";
-    private final String themeContainer = "//input[contains(@name,'Subject')]";
     private final String draftRow = "//a[contains(@title,'%s')]";
 
     public HomePage(WebDriver driver) {
@@ -52,6 +55,7 @@ public class HomePage extends BasePage {
     }
 
     public void verifyLoggedUserName(String verName) {
+        waitForPageReady();
         Assert.assertEquals("User name is not equal or is not find. Maybe, user was not logged propertly", verName,
                 verNameLabel.getText());
     }
@@ -106,8 +110,8 @@ public class HomePage extends BasePage {
         if (isAlertPresent()) {
             driver.switchTo().alert().accept();
         }
-        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow(addressPath)))
-                .isDisplayed());
+        waitForPageReady();
+        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow(addressPath))).isEnabled());
     }
 
     public void openDraftLetter(String addressPath) {
@@ -132,20 +136,28 @@ public class HomePage extends BasePage {
         sendLetter.click();
     }
 
-    public void checkEmptyDraft() {
-        Assert.assertTrue("Letter was not send.", noDraftLetters.isDisplayed());
-    }
-
     public void clickOnSendedLink() {
         sendedLink.click();
     }
 
     public void checkSendedLetter(String addressPath) {
+        waitForPageReady();
         Assert.assertTrue("Letter was not present in Outbox", driver.findElement(By.xpath(getDraftRow(addressPath)))
-                .isDisplayed());
+                .isEnabled());
     }
 
     public void logOut() {
         logOut.click();
+    }
+
+    public void confirmationClick() {
+        confirmationSend.click();
+    }
+
+    private void waitForPageReady() {
+        Object status;
+        do {
+            status = ((JavascriptExecutor) driver).executeScript("return document.readyState");
+        } while (!status.toString().equals("complete"));
     }
 }

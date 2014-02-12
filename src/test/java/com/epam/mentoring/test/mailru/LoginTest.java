@@ -30,8 +30,8 @@ public class LoginTest extends BaseTest {
         homePage.openDraftLetter(configuration.getAddress());
         homePage.savedLetter(configuration.getAddress(), configuration.getLetterTheme(), configuration.getLetterContent());
         homePage.sendLetter();
-        homePage.clickDraftLink();
-        homePage.checkEmptyDraft();
+        homePage.confirmationClick();
+        homePage.clickOnSendedLink();
         homePage.checkSendedLetter(configuration.getAddress());
         homePage.logOut();
     }
