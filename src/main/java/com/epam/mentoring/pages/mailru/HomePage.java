@@ -13,7 +13,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//i[@class='x-ph__menu__button__text x-ph__menu__button__text_auth']")
     private WebElement verNameLabel;
 
-    @FindBy(xpath = "//a[contains(@title,'РќР°РїРёСЃР°С‚СЊ РїРёСЃСЊРјРѕ')]")
+    @FindBy(xpath = "//a[contains(@title,'Написать письмо')]")
     private WebElement sendNewEMail;
 
     @FindBy(xpath = "//input[contains(@data-original-name, 'To')]")
@@ -22,25 +22,25 @@ public class HomePage extends BasePage {
     @FindBy(xpath = ".//input[contains(@name,'Subject')]")
     private WebElement letterTheme;
 
-    @FindBy(xpath = "//span[text() = 'РћС‚РїСЂР°РІРёС‚СЊ']")
+    @FindBy(xpath = "//span[text() = 'Отправить']")
     private WebElement sendLetter;
 
-    @FindBy(xpath = "//span[text() = 'РЎРѕС…СЂР°РЅРёС‚СЊ']")
+    @FindBy(xpath = "//span[text() = 'Сохранить']")
     private WebElement saveLetter;
 
-    @FindBy(xpath = "//span[text() = 'Р§РµСЂРЅРѕРІРёРєРё']")
+    @FindBy(xpath = "//span[text() = 'Черновики']")
     private WebElement draftLink;
 
-    @FindBy(xpath = "//span[text() = 'РћС‚РїСЂР°РІР»РµРЅРЅС‹Рµ']")
+    @FindBy(xpath = "//span[text() = 'Отправленные']")
     private WebElement sendedLink;
 
     @FindBy(xpath = "//div[contains(@data-name, 'saveStatus')]")
     private WebElement saveStatusMessage;
 
-    @FindBy(xpath = "//div[text() = 'РЈ РІР°СЃ РЅРµС‚ РЅРµР·Р°РІРµСЂС€РµРЅРЅС‹С… РїРёСЃРµРј']")
+    @FindBy(xpath = "//div[text() = 'У вас нет незавершенных писем']")
     private WebElement noDraftLetters;
 
-    @FindBy(xpath = "//a[text() = 'РІС‹С…РѕРґ']")
+    @FindBy(xpath = "//a[text() = 'выход']")
     private WebElement logOut;
 
     @FindBy(xpath = "//div[contains(@class, 'is-submit_empty_message_in')]//button[@class = 'btn btn_stylish btn_main confirm-ok']")
