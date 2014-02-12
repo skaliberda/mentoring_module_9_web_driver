@@ -16,4 +16,9 @@
 		</classes>
 	</test>
 
+    <test name="MailRuTest" >
+        <classes>
+            <class name="com.epam.mentoring.test.mailru.LoginTest" />
+        </classes>
+    </test>
 </suite>
