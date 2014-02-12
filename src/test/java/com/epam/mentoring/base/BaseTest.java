@@ -9,18 +9,33 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import com.epam.mentoring.core.TestData;
+import com.epam.mentoring.core.TestDataCreator;
 import com.epam.mentoring.core.Utils;
 
 public class BaseTest {
 
 	protected static WebDriver driver;
+	protected TestDataCreator testDataCreator;
+	protected TestData testData;
 	
-	public static WebDriver getDriver() {
-       	System.setProperty("webdriver.chrome.driver", ".//src//test/resources//chromedriver.exe");
-       	driver = new ChromeDriver();      
+	protected static WebDriver getDriver() {
+       	  
+		String browser = java.lang.System.getProperties().getProperty("webbrowser");
+		
+		if(browser.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browser.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver", ".//src//test/resources//chromedriver.exe");
+			driver = new ChromeDriver();  
+		} else  {
+			System.out.println("WebDriver " + browser + " is not defined");
+		}
+		
        	driver.manage().timeouts().implicitlyWait(Integer.parseInt(Utils.getProperty("timeout")), TimeUnit.SECONDS);//timeout
        	driver.manage().window().maximize();
        	return driver;             
@@ -31,6 +46,10 @@ public class BaseTest {
         if (driver == null) {
         	driver = getDriver();
         }
+        
+		//creates test data (used in creating of letter) via Builder pattern
+        testDataCreator = new TestDataCreator();
+        testData = testDataCreator.createTestData("a.n.lyvin@gmail.com", "Test letter", "Letter body from Builder constructor");
 	}
 	
 	@AfterSuite
