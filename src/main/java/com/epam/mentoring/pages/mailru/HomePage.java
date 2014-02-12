@@ -47,7 +47,7 @@ public class HomePage extends BasePage {
     private WebElement confirmationSend;
 
     private final String addressContainer = "//span[@class = 'js-compose-label compose__labels__label']//span[text() = '%s']";
-    private final String draftRow = "//a[contains(@title,'%s')]";
+    private final String draftRow = "//div[text() = '%s']";
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -111,7 +111,8 @@ public class HomePage extends BasePage {
             driver.switchTo().alert().accept();
         }
         waitForPageReady();
-        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow(addressPath))).isEnabled());
+        Assert.assertTrue("Letter was not saved into draft.", driver.findElement(By.xpath(getDraftRow(addressPath)))
+                .isEnabled());
     }
 
     public void openDraftLetter(String addressPath) {
