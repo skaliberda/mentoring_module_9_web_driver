@@ -27,6 +27,10 @@ public class BaseTest {
        	  
 		String browser = java.lang.System.getProperties().getProperty("webbrowser");
 		
+		if(browser==null){
+			browser = "firefox";
+		}
+		
 		if(browser.equalsIgnoreCase("firefox")) {
 			driver = new FirefoxDriver();
 		} else if (browser.equalsIgnoreCase("chrome")) {
