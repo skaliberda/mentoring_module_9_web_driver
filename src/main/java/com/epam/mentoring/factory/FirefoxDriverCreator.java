@@ -1,4 +1,19 @@
 package com.epam.mentoring.factory;
 
-public class FirefoxDriverCreator {
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+
+import java.io.File;
+
+public class FirefoxDriverCreator extends WebDriverCreator {
+
+    @Override
+    public WebDriver FactoryMethod() {
+        FirefoxBinary binary = new FirefoxBinary(new File("c:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
+        FirefoxProfile profile = new FirefoxProfile(new File("c:\\Users\\Dmytro_Ovcharenko1@epam.com\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\Test User\\"));
+        driver = new FirefoxDriver(binary, profile);
+        return driver;
+    }
 }
