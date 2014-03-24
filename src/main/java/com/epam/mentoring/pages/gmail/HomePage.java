@@ -11,7 +11,7 @@ import com.epam.mentoring.pages.BasePage;
 
 public class HomePage extends BasePage{
 	
-	@FindBy(xpath="//a[@class='gb_f gb_j']")
+	@FindBy(xpath="//a[@class = 'gb_g gb_k']")
 	private WebElement verNameLabel;
 	
 	

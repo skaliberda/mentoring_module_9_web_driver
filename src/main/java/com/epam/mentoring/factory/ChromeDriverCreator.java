@@ -14,7 +14,7 @@ public class ChromeDriverCreator extends WebDriverCreator {
 
     @Override
     public WebDriver FactoryMethod() {
-        System.setProperty("webdriver.chrome.driver", "d:\\CDP_Autotests\\HomeWorks\\Lesson8\\mentoring_module_9_web_driver\\src\\test\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver.exe");
         driver = new ChromeDriver();
         return driver;
     }

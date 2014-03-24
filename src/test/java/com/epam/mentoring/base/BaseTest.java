@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import com.epam.mentoring.decorator.DriverDecorator;
 import com.epam.mentoring.factory.ChromeDriverCreator;
 import com.epam.mentoring.factory.FirefoxDriverCreator;
 import com.epam.mentoring.factory.InternetExplorerDriverCreator;
@@ -12,7 +13,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -30,16 +30,18 @@ public class BaseTest {
         if (browser == null) {
             browser = "firefox";
         }
-
         if (browser.equalsIgnoreCase("firefox")) {
             WebDriverCreator creator = new FirefoxDriverCreator();
             driver = creator.FactoryMethod();
+            driver = new DriverDecorator(driver);
         } else if (browser.equalsIgnoreCase("chrome")) {
             WebDriverCreator creator = new ChromeDriverCreator();
             driver = creator.FactoryMethod();
+            driver = new DriverDecorator(driver);
         } else if (browser.equalsIgnoreCase("iexplorer")) {
             WebDriverCreator creator = new InternetExplorerDriverCreator();
             driver = creator.FactoryMethod();
+            driver = new DriverDecorator(driver);
         } else {
             System.out.println("WebDriver " + browser + " is not defined");
         }
